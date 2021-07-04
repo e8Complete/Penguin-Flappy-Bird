@@ -41,6 +41,9 @@ let bladeImageArray = [];
 let ghostImgArray = [];
 let ghostHopImg;
 
+let kimJongUn;
+let kimJongUnImgArray = [];
+
 let batHopImg;
 let batImageArray = [];
 
@@ -68,6 +71,7 @@ var blades = [];
 var madFlies = [];
 var bees = [];
 var ghosts = [];
+var kims = [];
 var bats = [];
 
 
@@ -107,9 +111,21 @@ let hSound;
 
 function preload() {
 
-  hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-2.png"));
-  hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-4.png"));
-  hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-3.png"));
+  //hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-2.png"));
+  //hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-4.png"));
+  //hopimg.push(loadImage("images/Pierre/pierre.atlas/pierre-flying-3.png"));
+
+  hopimg.push(loadImage("images/Dick/PenisMan2_Walk(01)_Right.png"));
+  hopimg.push(loadImage("images/Dick/PenisMan2_Walk(02)_Right.png"));
+  hopimg.push(loadImage("images/Dick/PenisMan2_Walk(03)_Right.png"));
+  hopimg.push(loadImage("images/Dick/PenisMan2_Walk(04)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(05)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(06)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(07)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(08)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(09)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(10)_Right.png"));
+  //hopimg.push(loadImage("images/Dick/PenisMan2_Walk(11)_Right.png"));
 
 
   madFlyHopImg = loadImage("images/Enemies/mad_fly_1.png");
@@ -149,7 +165,16 @@ function preload() {
   batImageArray.push(loadImage("images/Enemies/bat_8.png"));
 
 
-
+  kimJongUn = loadImage("images/Enemies/Kim_Jong-Un.png");
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
+  kimJongUnImgArray.push(loadImage("images/Enemies/Kim_Jong-Un.png"));
 
   ghostHopImg = loadImage("images/Enemies/ghost_0.png");
   ghostImgArray.push(loadImage("images/Enemies/ghost_0.png"));
@@ -168,6 +193,8 @@ function preload() {
   downArrowImg = loadImage("images/down-arrow.png");
 
   fallimg = loadImage("images/Pierre/pierre.atlas/pierre-flying-1.png");
+  fallimg = loadImage("images/Dick/PenisMan3.png");
+
   grassimg = loadImage("images/Environment/ground.atlas/ice-tile.png");
 
   bladeHopImg = loadImage("images/Enemies/blade-1.png");
@@ -648,7 +675,22 @@ var ghost = new Ghost(100, 250);
 
 
 
+// Kim Jong Un
+var KimJongUn = function(x, y) {
+  this.x = x;
+  this.y = y;
+  this.img = kimJongUn;
+};
 
+KimJongUn.prototype.fly = function() {
+  this.img = kimJongUnImgArray[frameCount % kimJongUnImgArray.length];
+};
+
+KimJongUn.prototype.draw = function() {
+  image(this.img, this.x, this.y, 120, 120);
+};
+
+var kim = new KimJongUn(100, 250);
 
 
 
@@ -807,6 +849,16 @@ function drawScene2() {
     littleBird.detectCollision(ghosts[i]);
     if (birdLife != 0) {
       ghosts[i].x -= 5;
+    }
+  }
+
+  for (var i = 0; i < 15; i++) {
+    kims.push(new KimJongUn(random(1000, 31000), random(60, windowHeight - 300)));
+    kims[i].fly();
+    kims[i].draw();
+    littleBird.detectCollision(kims[i]);
+    if (birdLife != 0) {
+      kims[i].x -= 5;
     }
   }
 
